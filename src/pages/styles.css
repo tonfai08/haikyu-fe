@@ -1,0 +1,19 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: linear-gradient(#feedc9, #2c2c2c);
+  font-family: "Prompt", sans-serif;
+  background-attachment: fixed;
+  background-size: cover;
+  min-height: 100%;
+}
+.container {
+  justify-content: center;
+  display: flex;
+}
+
+.block {
+  margin-bottom: 20px;
+}
