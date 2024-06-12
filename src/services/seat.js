@@ -20,9 +20,19 @@ export const getSeatGroup = async () => {
   }
 };
 
-export const postData = async (data) => {
+export const reserveSeats = async (seats) => {
+  const token = localStorage.getItem("token");
+  const data = {
+    token: token,
+    seats: seats,
+  };
   try {
-    const response = await axios.post(`${API_URL}/data`, data);
+    const response = await axios.post(`${API_URL}/reserve-seats`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
     return response.data;
   } catch (error) {
     console.error("Error posting data:", error);
