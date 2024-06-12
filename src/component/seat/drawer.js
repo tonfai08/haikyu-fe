@@ -28,10 +28,12 @@ const DrawerSeat = ({ data, fetchData }) => {
       }
       fetchData();
       setIsModalMns("สำเร็จ");
+      onClose();
     } catch (error) {
       fetchData();
       console.error("Failed to reserve seats:", error);
       setIsModalMns("มีคนจองแล้ว");
+      onClose();
     }
   };
   return (
