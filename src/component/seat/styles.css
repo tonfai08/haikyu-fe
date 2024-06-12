@@ -33,9 +33,12 @@ body {
   text-align: center;
   border-radius: 10px;
 }
-
+.seat.selected {
+  border: 2px solid #928650;
+  background-color: #e7d37b;
+}
 .occupied {
-  background-color: #feedc9;
+  background-color: rgb(161, 161, 112);
 }
 .marginTop50 {
   width: 2px;
