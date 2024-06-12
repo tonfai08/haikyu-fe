@@ -14,7 +14,15 @@ const Seat = () => {
   const [open, setOpen] = useState(false);
   const [seatData, setSeatData] = useState([]);
   const showDrawer = (seat) => {
-    setSeatData((prevSeats) => [...prevSeats, seat]);
+    setSeatData((prevSeats) => {
+      const isAlreadySelected = prevSeats.some((s) => s.name === seat.name);
+
+      if (isAlreadySelected) {
+        return prevSeats.filter((s) => s.name !== seat.name);
+      } else {
+        return [...prevSeats, seat];
+      }
+    });
     setOpen(true);
   };
   const onClose = () => {
@@ -25,7 +33,6 @@ const Seat = () => {
   const content = (seat) => {
     return (
       <div className="popover-detail">
-        <img src={`/images/p1.png`} alt={`Seat`} className="profile-img" />
         {seat?.status?.statusType === "available"
           ? "ยังไม่ถูกจอง"
           : seat?.status?.statusType}
@@ -48,6 +55,18 @@ const Seat = () => {
     };
     loadData();
   }, []);
+  const fetchData = async () => {
+    const dataFromServer = await getSeatGroup();
+    const sortedData = dataFromServer.sort((a, b) => {
+      if (a.row === "a") return 1;
+      if (b.row === "a") return -1;
+      return a.row < b.row ? 1 : -1;
+    });
+    setDataSeats(sortedData);
+  };
+  const isSeatSelected = (seatName) => {
+    return seatData.some((seat) => seat.name === seatName);
+  };
 
   return (
     <div className="seatsContainer">
@@ -64,8 +83,17 @@ const Seat = () => {
               <div key={seat.seatId} className="seat-container">
                 <Popover content={content(seat)}>
                   <div
-                    className={`${"seat"} ${seat.user ? "occupied" : ""}`}
-                    onClick={() => showDrawer(seat)}
+                    className={`seat ${
+                      seat.status?.statusType !== "available" ||
+                      isSeatSelected(seat.name)
+                        ? "occupied"
+                        : ""
+                    } ${isSeatSelected(seat.name) ? "selected" : ""}`}
+                    onClick={
+                      seat.status?.statusType === "available"
+                        ? () => showDrawer(seat)
+                        : null
+                    }
                   >
                     <img
                       src={"/images/seate.png"}
@@ -81,7 +109,7 @@ const Seat = () => {
         </div>
       ))}
       <Drawer title="จองที่นั่ง" onClose={onClose} mask={false} open={open}>
-        <DrawerSeat data={seatData} />
+        <DrawerSeat data={seatData} fetchData={fetchData} />
       </Drawer>
     </div>
   );
