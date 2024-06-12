@@ -29,6 +29,7 @@ const Seat = () => {
         {seat?.status?.statusType === "available"
           ? "ยังไม่ถูกจอง"
           : seat?.status?.statusType}
+        <p>ราคา : {seat?.price}</p>
       </div>
     );
   };
