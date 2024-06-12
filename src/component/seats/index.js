@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./styles.css";
-//import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { Button, Popover } from "antd";
+import { getSeatGroup } from "../../services/seat";
 const data = {
   G: [
     {
@@ -219,6 +219,7 @@ const data = {
     },
   ],
 };
+
 const Seat = () => {
   const [popoverInfo, setPopoverInfo] = useState({
     anchorEl: null,
@@ -256,6 +257,17 @@ const Seat = () => {
     }
     return result;
   }
+  const [dataSeats, setDataSeats] = useState(null);
+
+  useEffect(() => {
+    const loadData = async () => {
+      const dataFromServer = await getSeatGroup();
+      setData(dataFromServer);
+    };
+    loadData();
+  }, []);
+
+  console.log("data", data);
   return (
     <div className={"seatsContainer"}>
       <div className="screen"> Screen</div>
