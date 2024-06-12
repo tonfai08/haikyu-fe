@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Button, Popover, Drawer } from "antd";
 import { getSeatGroup } from "../../services/seat";
 import DrawerSeat from "./drawer";
+import CountdownTimer from "../countdown";
 
 const Seat = () => {
   const [popoverInfo, setPopoverInfo] = useState({
@@ -37,6 +38,15 @@ const Seat = () => {
           ? "ยังไม่ถูกจอง"
           : seat?.status?.statusType}
         <p>ราคา : {seat?.price}</p>
+
+        {seat?.status?.statusType === "reserved" ? (
+          <p>
+            เวลาที่เหลือในการจอง
+            <CountdownTimer startTime={seat.status.time} />
+          </p>
+        ) : (
+          ""
+        )}
       </div>
     );
   };
