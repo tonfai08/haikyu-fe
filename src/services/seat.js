@@ -38,3 +38,17 @@ export const reserveSeats = async (seats) => {
     console.error("Error posting data:", error);
   }
 };
+
+export const updateSeat = async (seats) => {
+  try {
+    const response = await axios.put(`${API_URL}/update-seat`, seats, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data; // Returns the updated seat information from the server
+  } catch (error) {
+    console.error("Error updating seat:", error);
+    throw error; // It's good practice to re-throw the error so it can be handled by the caller
+  }
+};
