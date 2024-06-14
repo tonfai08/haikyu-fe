@@ -119,7 +119,7 @@ const Seat = () => {
         </div>
       ))}
       <Drawer title="จองที่นั่ง" onClose={onClose} mask={false} open={open}>
-        <DrawerSeat data={seatData} fetchData={fetchData} />
+        <DrawerSeat data={seatData} fetchData={fetchData} onClose={onClose} />
       </Drawer>
     </div>
   );

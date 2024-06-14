@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Tag, Modal } from "antd";
 import { reserveSeats } from "../../services/seat";
 
-const DrawerSeat = ({ data, fetchData }) => {
+const DrawerSeat = ({ data, fetchData, onClose }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modelMns, setIsModalMns] = useState("");
   const totalPrice = data.reduce((acc, seat) => acc + seat.price, 0);
