@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import Test from "./pages/Test";
+import Admin from "./pages/Admin";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { generateToken } from "./utils/helper/token";
 
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </Router>
   );

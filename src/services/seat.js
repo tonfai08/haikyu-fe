@@ -20,6 +20,24 @@ export const getSeatGroup = async () => {
   }
 };
 
+export const deleteRowSeat = async (row) => {
+  try {
+    const response = await axios.delete(`${API_URL}/delete-by-row/${row}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const createSeats = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/create-seats`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
 export const reserveSeats = async (seats) => {
   const token = localStorage.getItem("token");
   const data = {
@@ -36,5 +54,19 @@ export const reserveSeats = async (seats) => {
     return response.data;
   } catch (error) {
     console.error("Error posting data:", error);
+  }
+};
+
+export const updateSeat = async (seats) => {
+  try {
+    const response = await axios.put(`${API_URL}/update-seat`, seats, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data; // Returns the updated seat information from the server
+  } catch (error) {
+    console.error("Error updating seat:", error);
+    throw error; // It's good practice to re-throw the error so it can be handled by the caller
   }
 };
