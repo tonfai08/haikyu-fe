@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Seat from "../../component/seatAdmin";
 import "../styles.css";
-const Home = () => {
+const AdminHome = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -17,4 +17,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AdminHome;

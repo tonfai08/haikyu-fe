@@ -20,9 +20,16 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+  align-items: center;
 }
 .center {
   text-align: center;
+}
+.title-btn {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: 8px;
 }
 .seat {
   padding: 5px;

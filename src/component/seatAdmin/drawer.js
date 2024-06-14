@@ -25,8 +25,7 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
       update: {
         reservedBy: {
           name: values.fullname,
-          token: "123456789abcdef",
-          slip: "uploaded_slip.jpg",
+          email: values.email,
         },
         status: {
           statusType: values.statusType,
@@ -34,7 +33,9 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
       },
     };
     try {
-      const response = await updateSeat(reqData);
+      await updateSeat(reqData);
+      onClose();
+      fetchData();
       console.log("Received values of form:", reqData);
     } catch (error) {
       console.error("Failed to reserve seats:", error);
@@ -110,9 +111,8 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
           rules={[{ required: true, message: "Please select your status!" }]}
         >
           <Select placeholder="Select a status">
-            <Select.Option value="active">Active</Select.Option>
-            <Select.Option value="inactive">Inactive</Select.Option>
-            <Select.Option value="suspended">Suspended</Select.Option>
+            <Select.Option value="successful">Successful</Select.Option>
+            <Select.Option value="Other">Other</Select.Option>
           </Select>
         </Form.Item>
 

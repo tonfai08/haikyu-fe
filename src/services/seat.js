@@ -20,6 +20,24 @@ export const getSeatGroup = async () => {
   }
 };
 
+export const deleteRowSeat = async (row) => {
+  try {
+    const response = await axios.delete(`${API_URL}/delete-by-row/${row}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const createSeats = async (data) => {
+  try {
+    const response = await axios.post(`${API_URL}/create-seats`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
 export const reserveSeats = async (seats) => {
   const token = localStorage.getItem("token");
   const data = {

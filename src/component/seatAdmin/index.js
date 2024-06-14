@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import Typography from "@mui/material/Typography";
-import { Button, Popover, Drawer } from "antd";
-import { getSeatGroup } from "../../services/seat";
+
+import { Button, Popover, Drawer, Modal } from "antd";
+import {
+  getSeatGroup,
+  deleteRowSeat as deleteRowSeatService,
+  createSeats,
+} from "../../services/seat";
 import DrawerSeat from "./drawer";
-import CountdownTimer from "../countdown";
+import CreateSeatModal from "./modalAddRow";
 
 const Seat = () => {
   const [popoverInfo, setPopoverInfo] = useState({
@@ -14,6 +18,8 @@ const Seat = () => {
   });
   const [open, setOpen] = useState(false);
   const [seatData, setSeatData] = useState([]);
+  const [createModalVisible, setCreateModalVisible] = useState(false);
+
   const showDrawer = (seat) => {
     setSeatData((prevSeats) => {
       console.log(prevSeats);
@@ -31,23 +37,26 @@ const Seat = () => {
     setSeatData([]);
     setOpen(false);
   };
-
+  const deleteRowSeat = async (row) => {
+    console.log(row);
+    try {
+      await deleteRowSeatService(row);
+      setDataSeats((currentDataSeats) =>
+        currentDataSeats.filter((r) => r.row !== row)
+      );
+    } catch (error) {
+      console.error("Failed to reserve seats:", error);
+    }
+  };
   const content = (seat) => {
     return (
       <div className="popover-detail">
+        {seat?.reservedBy?.email ? <p>{seat?.reservedBy?.email}</p> : ""}
+        {seat?.reservedBy?.name ? <p>{seat?.reservedBy?.name}</p> : ""}
         {seat?.status?.statusType === "available"
           ? "ยังไม่ถูกจอง"
           : seat?.status?.statusType}
         <p>ราคา : {seat?.price}</p>
-
-        {seat?.status?.statusType === "reserved" ? (
-          <p>
-            เวลาที่เหลือในการจอง
-            <CountdownTimer startTime={seat.status.time} />
-          </p>
-        ) : (
-          ""
-        )}
       </div>
     );
   };
@@ -66,6 +75,7 @@ const Seat = () => {
     };
     loadData();
   }, []);
+
   const fetchData = async () => {
     const dataFromServer = await getSeatGroup();
     const sortedData = dataFromServer.sort((a, b) => {
@@ -75,16 +85,57 @@ const Seat = () => {
     });
     setDataSeats(sortedData);
   };
+
   const isSeatSelected = (seatName) => {
     return seatData.some((seat) => seat.name === seatName);
   };
 
+  const showDeleteConfirm = (row) => {
+    Modal.confirm({
+      title: "Are you sure you want to delete this row?",
+      content: `Deleting row: ${row}. This action cannot be undone.`,
+      okText: "Yes, delete it",
+      okType: "danger",
+      cancelText: "No, cancel",
+      onOk() {
+        deleteRowSeat(row);
+      },
+      onCancel() {
+        console.log("Cancel delete");
+      },
+    });
+  };
+
+  const handleCreate = async (data) => {
+    try {
+      await createSeats(data);
+      fetchData();
+      setCreateModalVisible(false);
+    } catch (error) {
+      console.error("Error creating seats:", error);
+    }
+  };
   return (
     <div className="seatsContainer">
+      <div className="title-btn">
+        <Button
+          type="primary"
+          className="btn-add"
+          onClick={() => setCreateModalVisible(true)}
+        >
+          + Add Row
+        </Button>
+      </div>
       <div className="screen">Screen</div>
       {dataSeats?.map((row) => (
         <div key={row.row} className="row">
-          <>test</>
+          <Button
+            type="primary"
+            className="center "
+            onClick={() => showDeleteConfirm(row.row)}
+          >
+            -
+          </Button>
           {row?.seats?.map((seat, index) => (
             <div
               key={index}
@@ -119,6 +170,12 @@ const Seat = () => {
       <Drawer title="จองที่นั่ง" onClose={onClose} mask={false} open={open}>
         <DrawerSeat data={seatData} fetchData={fetchData} onClose={onClose} />
       </Drawer>
+      <CreateSeatModal
+        visible={createModalVisible}
+        onCreate={handleCreate}
+        onCancel={() => setCreateModalVisible(false)}
+        fetchData={fetchData}
+      />
     </div>
   );
 };
