@@ -125,6 +125,9 @@ body {
 }
 
 @media (max-width: 480px) {
+  .row {
+    margin-bottom: 6px;
+  }
   .seatsContainer {
     padding: 4px;
   }
@@ -135,8 +138,8 @@ body {
   .seat {
     padding: 1px;
     margin: 1px;
-    width: 18px;
-    height: 26px;
+    width: 16px;
+    height: 27px;
     border-radius: 4px;
     align-items: center;
   }
@@ -148,7 +151,7 @@ body {
     font-size: 12px;
   }
   .text-seat-name {
-    font-size: 8px;
+    font-size: 7px;
   }
   .margin-left {
     margin-right: 1px;
