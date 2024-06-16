@@ -4,7 +4,8 @@ import Typography from "@mui/material/Typography";
 import { Button, Popover, Drawer } from "antd";
 import { getSeatGroup } from "../../services/seat";
 import DrawerSeat from "./drawer";
-import CountdownTimer from "../countdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Seat = () => {
   const [popoverInfo, setPopoverInfo] = useState({
@@ -33,20 +34,25 @@ const Seat = () => {
 
   const content = (seat) => {
     return (
-      <div className="popover-detail">
-        {seat?.status?.statusType === "available"
-          ? "ยังไม่ถูกจอง"
-          : seat?.status?.statusType}
-        <p>ราคา : {seat?.price}</p>
+      // <div className="popover-detail">
+      //   {seat?.status?.statusType === "available"
+      //     ? "ยังไม่ถูกจอง"
+      //     : seat?.status?.statusType}
+      //   <p>ราคา : {seat?.price}</p>
 
-        {seat?.status?.statusType === "reserved" ? (
-          <p>
-            เวลาที่เหลือในการจอง
-            <CountdownTimer startTime={seat.status.time} />
-          </p>
-        ) : (
-          ""
-        )}
+      //   {seat?.status?.statusType === "reserved" ? (
+      //     <p>
+      //       เวลาที่เหลือในการจอง
+      //       <CountdownTimer startTime={seat.status.time} />
+      //     </p>
+      //   ) : (
+      //     ""
+      //   )}
+      // </div>
+      <div className="popover-detail">
+        {seat?.reservedBy?.email ? <p>{seat?.reservedBy?.email}</p> : ""}
+        {seat?.reservedBy?.name ? <p>{seat?.reservedBy?.name}</p> : ""}
+        {seat?.status?.statusType === "available" ? "ยังไม่ถูกจอง" : "จองแล้ว"}
       </div>
     );
   };
@@ -99,17 +105,25 @@ const Seat = () => {
                         ? "occupied"
                         : ""
                     } ${isSeatSelected(seat.name) ? "selected" : ""}`}
-                    onClick={
-                      seat.status?.statusType === "available"
-                        ? () => showDrawer(seat)
-                        : null
-                    }
+                    // onClick={
+                    //   seat.status?.statusType === "available"
+                    //     ? () => showDrawer(seat)
+                    //     : null
+                    // }
                   >
-                    <img
-                      src={"/images/seate.png"}
-                      alt={`Seat ${seat.name}`}
-                      className="seat-img"
-                    />
+                    <div>
+                      <div>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className={`custom-icon ${
+                            seat.price > 280
+                              ? "custom-icon-285"
+                              : "custom-icon-250"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
                     <span className="font-prompt">{seat.name}</span>
                   </div>
                 </Popover>

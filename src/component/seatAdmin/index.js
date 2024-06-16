@@ -9,6 +9,8 @@ import {
 } from "../../services/seat";
 import DrawerSeat from "./drawer";
 import CreateSeatModal from "./modalAddRow";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const Seat = () => {
   const [popoverInfo, setPopoverInfo] = useState({
@@ -154,11 +156,18 @@ const Seat = () => {
                     } ${isSeatSelected(seat.name) ? "selected" : ""}`}
                     onClick={() => showDrawer(seat)}
                   >
-                    <img
-                      src={"/images/seate.png"}
-                      alt={`Seat ${seat.name}`}
-                      className="seat-img"
-                    />
+                    <div>
+                      <div>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className={`custom-icon ${
+                            seat.price > 280
+                              ? "custom-icon-285"
+                              : "custom-icon-250"
+                          }`}
+                        />
+                      </div>
+                    </div>
                     <span className="font-prompt">{seat.name}</span>
                   </div>
                 </Popover>
