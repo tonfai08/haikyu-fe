@@ -7,8 +7,8 @@ const Home = () => {
 
   return (
     <div className={"contaner"}>
-      <div className={"header-img"}>
-        <img src="./images/header.jpg" alt="header" style={{ width: "50%" }} />
+      <div className={"header"}>
+        <img src="./images/header.jpg" alt="header" className="header-img" />
       </div>
       <div className={"block"}>
         <Seat />
