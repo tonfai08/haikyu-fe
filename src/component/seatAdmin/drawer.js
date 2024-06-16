@@ -111,6 +111,7 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
         >
           <Select placeholder="Select a status">
             <Select.Option value="Occupied">Occupied</Select.Option>
+            <Select.Option value="available">Available</Select.Option>
             <Select.Option value="Other">Other</Select.Option>
           </Select>
         </Form.Item>
