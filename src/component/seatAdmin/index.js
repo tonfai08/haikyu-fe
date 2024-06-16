@@ -10,7 +10,7 @@ import {
 import DrawerSeat from "./drawer";
 import CreateSeatModal from "./modalAddRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faCouch, faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
 const Seat = () => {
   const [popoverInfo, setPopoverInfo] = useState({
@@ -55,10 +55,11 @@ const Seat = () => {
       <div className="popover-detail">
         {seat?.reservedBy?.email ? <p>{seat?.reservedBy?.email}</p> : ""}
         {seat?.reservedBy?.name ? <p>{seat?.reservedBy?.name}</p> : ""}
-        {seat?.status?.statusType === "available"
-          ? "ยังไม่ถูกจอง"
-          : seat?.status?.statusType}
-        <p>ราคา : {seat?.price}</p>
+        {seat?.status?.statusType === "available" ? (
+          <div className="text-status">Available</div>
+        ) : (
+          <div className="text-status text-red">Occupied</div>
+        )}
       </div>
     );
   };
@@ -148,27 +149,39 @@ const Seat = () => {
               <div key={seat.seatId} className="seat-container">
                 <Popover content={content(seat)}>
                   <div
-                    className={`seat ${
-                      seat.status?.statusType !== "available" ||
-                      isSeatSelected(seat.name)
-                        ? "occupied"
-                        : ""
-                    } ${isSeatSelected(seat.name) ? "selected" : ""}`}
+                    className={`seat  ${
+                      isSeatSelected(seat.name) ? "selected" : ""
+                    }`}
                     onClick={() => showDrawer(seat)}
                   >
                     <div>
-                      <div>
-                        <FontAwesomeIcon
-                          icon={faUser}
-                          className={`custom-icon ${
-                            seat.price > 280
-                              ? "custom-icon-285"
-                              : "custom-icon-250"
-                          }`}
-                        />
+                      <div className="bloc-icon-fix">
+                        {seat.status?.statusType === "available" ? (
+                          <FontAwesomeIcon
+                            icon={faCouch}
+                            className={`custom-icon ${
+                              seat.price > 280
+                                ? "custom-icon-285"
+                                : "custom-icon-250"
+                            }`}
+                          />
+                        ) : (
+                          <FontAwesomeIcon
+                            icon={faCircleXmark}
+                            className={`icon-reserved`}
+                          />
+                        )}
                       </div>
                     </div>
-                    <span className="font-prompt">{seat.name}</span>
+                    <span
+                      className={`${
+                        seat.status?.statusType !== "available"
+                          ? "reserved-seat-name"
+                          : ""
+                      }`}
+                    >
+                      {seat.name}
+                    </span>
                   </div>
                 </Popover>
               </div>

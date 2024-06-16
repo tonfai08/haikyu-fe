@@ -7,6 +7,13 @@ const AdminHome = () => {
 
   return (
     <div className={"contaner"}>
+      <div className={"header-img"}>
+        <img
+          src="../../images/header.jpg"
+          alt="header"
+          style={{ width: "50%" }}
+        />
+      </div>
       <div className={"block"}>
         <Seat />
       </div>

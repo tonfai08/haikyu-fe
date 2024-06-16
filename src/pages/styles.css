@@ -3,7 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-image: linear-gradient(#feedc9, #2c2c2c);
+  background-image: linear-gradient(#ec8737, #c64e55);
   font-family: "Prompt", sans-serif;
   background-attachment: fixed;
   background-size: cover;
@@ -16,4 +16,10 @@ body {
 
 .block {
   margin-bottom: 20px;
+}
+.header-img {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
 }

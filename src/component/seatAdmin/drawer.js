@@ -73,7 +73,7 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
           </Tag>
         ))}
       </p>
-      <p>ราคา : {totalPrice} </p>
+      <p>จำนวนที่นั่ง : {data.length} </p>
       <Form
         form={form}
         name="user_form"
@@ -110,7 +110,7 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
           rules={[{ required: true, message: "Please select your status!" }]}
         >
           <Select placeholder="Select a status">
-            <Select.Option value="Reserve">Reserve</Select.Option>
+            <Select.Option value="Occupied">Occupied</Select.Option>
             <Select.Option value="Other">Other</Select.Option>
           </Select>
         </Form.Item>
