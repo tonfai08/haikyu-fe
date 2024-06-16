@@ -88,7 +88,6 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
           name="email"
           rules={[
             {
-              required: true,
               type: "email",
               message: "Please input your email!",
             },
@@ -100,18 +99,18 @@ const DrawerSeat = ({ data, fetchData, onClose }) => {
         <Form.Item
           label="Full Name"
           name="fullname"
-          rules={[{ required: true, message: "Please input your full name!" }]}
+          rules={[{ message: "Please input your full name!" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Status Type"
+          label="Status"
           name="statusType"
           rules={[{ required: true, message: "Please select your status!" }]}
         >
           <Select placeholder="Select a status">
-            <Select.Option value="successful">Successful</Select.Option>
+            <Select.Option value="Reserve">Reserve</Select.Option>
             <Select.Option value="Other">Other</Select.Option>
           </Select>
         </Form.Item>
