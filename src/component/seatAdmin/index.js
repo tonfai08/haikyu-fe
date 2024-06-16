@@ -174,7 +174,7 @@ const Seat = () => {
                       </div>
                     </div>
                     <span
-                      className={`${
+                      className={`text-seat-name ${
                         seat.status?.statusType !== "available"
                           ? "reserved-seat-name"
                           : ""

@@ -17,9 +17,17 @@ body {
 .block {
   margin-bottom: 20px;
 }
-.header-img {
+.header {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
+}
+.header-img {
+  width: 50%;
+}
+@media (max-width: 480px) {
+  .header-img {
+    width: 80%;
+  }
 }

@@ -95,27 +95,25 @@ const Seat = () => {
               <div key={seat.seatId} className="seat-container">
                 <Popover content={content(seat)}>
                   <div className="seat">
-                    <div>
-                      <div>
-                        {seat.status?.statusType === "available" ? (
-                          <FontAwesomeIcon
-                            icon={faCouch}
-                            className={`custom-icon ${
-                              seat.price > 280
-                                ? "custom-icon-285"
-                                : "custom-icon-250"
-                            }`}
-                          />
-                        ) : (
-                          <FontAwesomeIcon
-                            icon={faCircleXmark}
-                            className={`icon-reserved`}
-                          />
-                        )}
-                      </div>
+                    <div className="bloc-icon-fix">
+                      {seat.status?.statusType === "available" ? (
+                        <FontAwesomeIcon
+                          icon={faCouch}
+                          className={`custom-icon ${
+                            seat.price > 280
+                              ? "custom-icon-285"
+                              : "custom-icon-250"
+                          }`}
+                        />
+                      ) : (
+                        <FontAwesomeIcon
+                          icon={faCircleXmark}
+                          className={`icon-reserved`}
+                        />
+                      )}
                     </div>
                     <span
-                      className={`${
+                      className={`text-seat-name ${
                         seat.status?.statusType !== "available"
                           ? "reserved-seat-name"
                           : ""
