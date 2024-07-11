@@ -8,7 +8,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (otp.length === 6) {
-      if (otp === "081013") {
+      if (otp === "111510") {
         const token = btoa(otp);
         localStorage.setItem("token", token);
         alert("Login successful!");
