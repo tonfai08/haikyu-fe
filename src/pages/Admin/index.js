@@ -9,7 +9,7 @@ const AdminHome = () => {
     <div className={"contaner"}>
       <div className={"header"}>
         <img
-          src="../../images/header.jpg"
+          src="../../images/header.png"
           alt="header"
           className="header-img"
         />
