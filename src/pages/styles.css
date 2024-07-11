@@ -63,7 +63,7 @@ body {
     border-radius: 1rem;
   }
   .otp-input {
-    margin: 0rem;
+    margin: 1px;
     font-size: 2rem;
     border-radius: 0.5rem;
     border: 1px solid #ccc;
@@ -72,7 +72,7 @@ body {
   }
 
   .otp-separator {
-    margin: 0.5rem;
+    margin: 0px;
     font-size: 1.5rem;
     color: #333;
   }
